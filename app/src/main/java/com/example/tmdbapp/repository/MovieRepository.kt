@@ -12,9 +12,6 @@ object MovieRepository {
 
     suspend fun fetchMovies(query: String, page: Int): List<MovieResponse> {
         val result = api.getMovies(query, page).results
-        result.forEach {
-            Log.d("MovieRepository", "RAW posterPath=${it.posterPath}")
-        }
         return result
     }
 }

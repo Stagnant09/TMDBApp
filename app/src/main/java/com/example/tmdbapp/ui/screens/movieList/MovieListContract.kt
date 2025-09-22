@@ -10,6 +10,7 @@ sealed interface MovieListContract {
     sealed interface Event : CustomEvent {
         data object Init : Event
         data object LoadMovies : Event
+        data object Refresh : Event
         data class OnMovieClick(val movie: Movie) : Event
     }
 

@@ -35,6 +35,27 @@ class MovieListViewModel(
                     )
                 }
             }
+
+            MovieListContract.Event.Refresh -> {
+                setState {
+                    uiState.value.copy(
+                        isLoading = true
+                    )
+                }
+                interactor.getMovies(
+                    query = uiState.value.query,
+                    page = 1
+                ).collect { movies ->
+                    setState { uiState.value.copy(
+                        movies = movies
+                    ) }
+                }
+                setState {
+                    uiState.value.copy(
+                        isLoading = false
+                    )
+                }
+            }
         }
     }
 }

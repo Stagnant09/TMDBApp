@@ -17,12 +17,7 @@ fun MovieResponse.toMovie(): Movie {
         video = this.video,
         voteAverage = this.voteAverage,
         voteCount = this.voteCount,
-        posterPath = posterPath.let { "https://image.tmdb.org/t/p/w500$it" },
-        backdropPath = backdropPath?.let { "https://image.tmdb.org/t/p/w780$it" },
+        posterPath = this.poster_path.let { "https://image.tmdb.org/t/p/w500$it" },
+        backdropPath = this.backdrop_path?.let { "https://image.tmdb.org/t/p/w780$it" },
     )
-}
-
-// Optional: Transformer for a list of MovieResponses
-fun List<MovieResponse>.toMovies(): List<Movie> {
-    return this.map { it.toMovie() }
 }

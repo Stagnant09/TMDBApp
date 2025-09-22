@@ -3,6 +3,8 @@ package com.example.tmdbapp.ui.screens.movieList
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -18,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.tmdbapp.interactors.MovieInteractor
 import com.example.tmdbapp.ui.components.MovieCardList
@@ -51,7 +54,7 @@ fun MovieListScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { viewModel.setEvent(MovieListContract.Event.LoadMovies) }) {
+                    IconButton(onClick = { viewModel.setEvent(MovieListContract.Event.Refresh) }) {
                         Icon(
                             imageVector = Icons.Filled.Refresh,
                             contentDescription = "Refresh movie list"
@@ -63,7 +66,7 @@ fun MovieListScreen(
     ){
         PullToRefreshBox(
             isRefreshing = state.isLoading,
-            onRefresh = { viewModel.setEvent(MovieListContract.Event.LoadMovies) },
+            onRefresh = { viewModel.setEvent(MovieListContract.Event.Refresh) },
         ) {
             Column(modifier = Modifier.padding(it)) {
                 when (state.isLoading) {
@@ -71,6 +74,8 @@ fun MovieListScreen(
                         TabWideCircularProgressIndicator()
                     }
                     false -> {
+                        Text(text = "Search results for \"${state.query}\"", modifier = Modifier.padding(16.dp))
+                        Spacer(modifier = Modifier.height(4.dp))
                         state.movies.forEach {
                             Log.d("MovieListScreen", it.posterPath.toString())
                         }
