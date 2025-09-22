@@ -3,7 +3,6 @@ package com.example.tmdbapp.ui.components
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import com.example.tmdbapp.models.Movie
-import com.example.tmdbapp.ui.MovieListContract
 
 @Composable
 fun MovieCardList(

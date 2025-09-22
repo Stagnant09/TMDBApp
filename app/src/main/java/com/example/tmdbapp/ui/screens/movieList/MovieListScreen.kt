@@ -1,5 +1,6 @@
-package com.example.tmdbapp.ui
+package com.example.tmdbapp.ui.screens.movieList
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -19,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.tmdbapp.interactors.MovieInteractor
 import com.example.tmdbapp.ui.components.MovieCardList
+import com.example.tmdbapp.ui.components.TabWideCircularProgressIndicator
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,6 +31,7 @@ fun MovieListScreen(
     val state = viewModel.uiState.collectAsStateWithLifecycle().value
 
     LaunchedEffect(Unit) {
+        viewModel.setEvent(MovieListContract.Event.Init)
         viewModel.setEvent(MovieListContract.Event.LoadMovies)
     }
 
@@ -62,16 +65,24 @@ fun MovieListScreen(
             onRefresh = { viewModel.setEvent(MovieListContract.Event.LoadMovies) },
         ) {
             Column(modifier = Modifier.padding(it)) {
-                MovieCardList(
-                    movies = state.movies,
-                    onItemClick = { movie -> viewModel.setEvent(MovieListContract.Event.OnMovieClick(movie)) }
-                )
+                when (state.isLoading) {
+                    true -> {
+                        TabWideCircularProgressIndicator()
+                    }
+                    false -> {
+                        MovieCardList(
+                            movies = state.movies,
+                            onItemClick = { movie -> viewModel.setEvent(MovieListContract.Event.OnMovieClick(movie)) }
+                        )
+                    }
+                }
             }
         }
     }
 
 }
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Preview(showBackground = true)
 @Composable
 fun MovieListScreenPreview() {

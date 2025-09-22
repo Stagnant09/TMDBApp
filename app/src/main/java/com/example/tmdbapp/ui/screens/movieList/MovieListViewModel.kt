@@ -1,4 +1,4 @@
-package com.example.tmdbapp.ui
+package com.example.tmdbapp.ui.screens.movieList
 
 import com.example.tmdbapp.interactors.MovieInteractor
 import com.example.tmdbapp.mvi.CustomViewModel
@@ -10,6 +10,13 @@ class MovieListViewModel(
 ) {
     override suspend fun handleEvent(event: MovieListContract.Event) {
         when (event) {
+            MovieListContract.Event.Init -> {
+                setState {
+                    uiState.value.copy(
+                        isLoading = true
+                    )
+                }
+            }
             is MovieListContract.Event.OnMovieClick -> {
 
             }

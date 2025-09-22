@@ -41,10 +41,11 @@ data class MovieResponse(
 )
 
 interface MovieApi {
-    @GET()
+    @GET("search/movie")
     suspend fun getMovies(
         @Query("query") query: String,
         @Query("page") page: Int,
+        @Query("language") language: String = "en-US",
         @Query("include_adult") includeAdult: Boolean = false
     ): ApiResult<List<MovieResponse>>
 }
