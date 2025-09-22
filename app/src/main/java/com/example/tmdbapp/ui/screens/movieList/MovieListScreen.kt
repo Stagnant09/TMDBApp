@@ -1,6 +1,7 @@
 package com.example.tmdbapp.ui.screens.movieList
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -70,6 +71,9 @@ fun MovieListScreen(
                         TabWideCircularProgressIndicator()
                     }
                     false -> {
+                        state.movies.forEach {
+                            Log.d("MovieListScreen", it.posterPath.toString())
+                        }
                         MovieCardList(
                             movies = state.movies,
                             onItemClick = { movie -> viewModel.setEvent(MovieListContract.Event.OnMovieClick(movie)) }

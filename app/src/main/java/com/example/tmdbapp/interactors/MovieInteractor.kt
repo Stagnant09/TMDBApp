@@ -4,7 +4,6 @@ import com.example.tmdbapp.models.Movie
 import com.example.tmdbapp.network.MovieResponse
 import com.example.tmdbapp.repository.MovieRepository
 import com.example.tmdbapp.transformers.toMovie
-import com.example.tmdbapp.transformers.toMovies
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -32,7 +31,7 @@ class MovieInteractor(
         .flowOn(Dispatchers.IO) // Perform repository call and transformation on IO dispatcher
         .catch {
             // Handle exceptions, e.g., network error
-            // Log the error for debugging: System.err.println("Error fetching movies: ${it.message}")
+            System.err.println("Error fetching movies: ${it.message}")
             emit(emptyList<Movie>()) // Emit an empty list in case of an error
         }
 }

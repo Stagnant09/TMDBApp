@@ -6,19 +6,19 @@ import com.example.tmdbapp.network.MovieResponse
 fun MovieResponse.toMovie(): Movie {
     return Movie(
         adult = this.adult,
-        backdropPath = this.backdropPath,
         genreIds = this.genreIds,
         id = this.id,
         originalLanguage = this.originalLanguage,
         originalTitle = this.originalTitle,
         overview = this.overview,
         popularity = this.popularity,
-        posterPath = this.posterPath,
         releaseDate = this.releaseDate,
         title = this.title,
         video = this.video,
         voteAverage = this.voteAverage,
-        voteCount = this.voteCount
+        voteCount = this.voteCount,
+        posterPath = posterPath.let { "https://image.tmdb.org/t/p/w500$it" },
+        backdropPath = backdropPath?.let { "https://image.tmdb.org/t/p/w780$it" },
     )
 }
 
