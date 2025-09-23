@@ -3,7 +3,8 @@ package com.example.tmdbapp
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.example.tmdbapp.ui.screens.movieList.navigation.MovieListRoute
+import com.example.tmdbapp.ui.screens.main.navigation.MainRoute
+import com.example.tmdbapp.ui.screens.main.navigation.mainScreen
 import com.example.tmdbapp.ui.screens.movieList.navigation.movieListScreen
 
 @Composable
@@ -12,8 +13,9 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = MovieListRoute
+        startDestination = MainRoute
     ) {
+        mainScreen(navController = navController)
         movieListScreen(navController = navController)
     }
 }

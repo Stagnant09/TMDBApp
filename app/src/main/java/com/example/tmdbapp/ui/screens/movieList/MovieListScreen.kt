@@ -18,6 +18,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,8 +37,7 @@ fun MovieListScreen(
     val state = viewModel.uiState.collectAsStateWithLifecycle().value
 
     LaunchedEffect(Unit) {
-        viewModel.setEvent(MovieListContract.Event.Init)
-        viewModel.setEvent(MovieListContract.Event.LoadMovies)
+
     }
 
     Scaffold(
@@ -63,7 +64,7 @@ fun MovieListScreen(
                 }
             )
         }
-    ){
+    ) {
         PullToRefreshBox(
             isRefreshing = state.isLoading,
             onRefresh = { viewModel.setEvent(MovieListContract.Event.Refresh) },
@@ -73,22 +74,32 @@ fun MovieListScreen(
                     true -> {
                         TabWideCircularProgressIndicator()
                     }
+
                     false -> {
-                        Text(text = "Search results for \"${state.query}\"", modifier = Modifier.padding(16.dp))
+                        Log.d("MovieListScreen", state.movies.toString())
+                        Text(
+                            text = "Search results for \"${state.query}\"",
+                            modifier = Modifier.padding(16.dp)
+                        )
                         Spacer(modifier = Modifier.height(4.dp))
                         state.movies.forEach {
                             Log.d("MovieListScreen", it.posterPath.toString())
                         }
                         MovieCardList(
                             movies = state.movies,
-                            onItemClick = { movie -> viewModel.setEvent(MovieListContract.Event.OnMovieClick(movie)) }
+                            onItemClick = { movie ->
+                                viewModel.setEvent(
+                                    MovieListContract.Event.OnMovieClick(
+                                        movie
+                                    )
+                                )
+                            }
                         )
                     }
                 }
             }
         }
     }
-
 }
 
 @SuppressLint("ViewModelConstructorInComposable")
@@ -96,7 +107,8 @@ fun MovieListScreen(
 @Composable
 fun MovieListScreenPreview() {
     val viewModel = MovieListViewModel(
-        interactor = MovieInteractor()
+        interactor = MovieInteractor(),
+        query = "alien"
     )
     MovieListScreen(
         viewModel = viewModel, onBack = {}

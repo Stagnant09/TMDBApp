@@ -27,7 +27,7 @@ data class MovieResponse(
     val popularity: Double,
 
     @SerialName("poster_path")
-    val poster_path: String,
+    val poster_path: String, // Not camelcased because it's a JSON field - not recognized during serialization
 
     @SerialName("release_date")
     val releaseDate: String?,
