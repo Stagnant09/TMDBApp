@@ -1,7 +1,6 @@
 package com.example.tmdbapp.ui.screens.movieList
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -22,7 +21,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,7 +29,6 @@ import com.example.tmdbapp.interactors.MovieInteractor
 import com.example.tmdbapp.statics.MovieDetails
 import com.example.tmdbapp.ui.components.MovieCardList
 import com.example.tmdbapp.ui.components.TabWideCircularProgressIndicator
-import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,7 +44,6 @@ fun MovieListScreen(
         viewModel.uiEffect.collect { effect ->
             when (effect) {
                 is MovieListContract.Effect.NavigateToMovieDetails -> {
-                    Log.d("MovieListScreen", "Navigating to movie details")
                     onNavigateToMovieDetails()
                 }
             }
@@ -100,7 +96,7 @@ fun MovieListScreen(
                                 val reachedBottom: Boolean by remember {
                                     derivedStateOf {
                                         val lastVisibleItem = lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()
-                                        lastVisibleItem?.index != 0 && lastVisibleItem?.index == lazyListState.layoutInfo.totalItemsCount - 2
+                                        lastVisibleItem?.index != 0 && lastVisibleItem?.index == lazyListState.layoutInfo.totalItemsCount - 1
                                     }
                                 }
 

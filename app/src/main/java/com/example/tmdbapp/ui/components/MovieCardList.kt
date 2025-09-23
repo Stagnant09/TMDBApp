@@ -19,7 +19,7 @@ fun MovieCardList(
     LazyColumn(modifier = Modifier.padding(8.dp), state = lazyListState) {
         items(movies.size) { index ->
             MovieCard(movies[index], onClick = { onItemClick(movies[index]) })
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(12.dp))
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.tmdbapp.ui.screens.movieDetails
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -37,6 +38,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tmdbapp.statics.MovieDetails
+import com.example.tmdbapp.ui.components.ExpandableText
 import com.example.tmdbapp.ui.components.RemoteIcon
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -170,19 +172,19 @@ fun MovieDetailsScreen(
                 ),
                 color = MaterialTheme.colorScheme.onBackground
             )
-            Text(
-                text = movie.overview.ifEmpty { "No overview available." },
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                color = MaterialTheme.colorScheme.onSurface
-            )
+            Box(modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
+                ExpandableText(
+                    text = movie.overview.ifEmpty { "No overview available." },
+                    minimizedMaxLines = 4
+                )
+            }
 
             // --- Additional Details Section ---
             HorizontalDivider(
                 modifier = Modifier.padding(
                     start = 16.dp,
                     end = 16.dp,
-                    top = 16.dp,
+                    top = 2.dp,
                     bottom = 8.dp
                 )
             )
