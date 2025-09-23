@@ -13,15 +13,15 @@ data class MovieResponse(
     val backdrop_path: String?,
 
     @SerialName("genre_ids")
-    val genreIds: List<Int>?,
+    val genre_ids: List<Int>?,
 
     val id: Int,
 
     @SerialName("original_language")
-    val originalLanguage: String?,
+    val original_language: String?,
 
     @SerialName("original_title")
-    val originalTitle: String?,
+    val original_title: String?,
 
     val overview: String,
     val popularity: Double,
@@ -30,16 +30,16 @@ data class MovieResponse(
     val poster_path: String, // Not camelcased because it's a JSON field - not recognized during serialization
 
     @SerialName("release_date")
-    val releaseDate: String?,
+    val release_date: String?,
 
     val title: String,
     val video: Boolean,
 
     @SerialName("vote_average")
-    val voteAverage: Double,
+    val vote_average: Double,
 
     @SerialName("vote_count")
-    val voteCount: Int
+    val vote_count: Int
 )
 
 interface MovieApi {

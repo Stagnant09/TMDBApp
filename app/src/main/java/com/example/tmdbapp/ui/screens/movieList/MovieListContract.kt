@@ -20,7 +20,7 @@ sealed interface MovieListContract {
     ) : CustomState
 
     sealed interface Effect : CustomEffect {
-
+        data object NavigateToMovieDetails : Effect
     }
 
 }

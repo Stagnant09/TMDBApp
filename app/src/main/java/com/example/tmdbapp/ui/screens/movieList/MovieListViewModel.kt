@@ -1,8 +1,10 @@
 package com.example.tmdbapp.ui.screens.movieList
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.tmdbapp.interactors.MovieInteractor
 import com.example.tmdbapp.mvi.CustomViewModel
+import com.example.tmdbapp.statics.MovieDetails
 import kotlinx.coroutines.launch
 
 class MovieListViewModel(
@@ -35,7 +37,11 @@ class MovieListViewModel(
     override suspend fun handleEvent(event: MovieListContract.Event) {
         when (event) {
             is MovieListContract.Event.OnMovieClick -> {
-                // handle click
+                Log.d("MovieListViewModel", "Navigating to movie details")
+                MovieDetails.movie = event.movie
+                setEffect {
+                    MovieListContract.Effect.NavigateToMovieDetails
+                }
             }
             MovieListContract.Event.LoadMovies -> {
                 loadMovies()
