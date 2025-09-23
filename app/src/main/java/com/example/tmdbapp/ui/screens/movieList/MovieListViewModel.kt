@@ -22,7 +22,7 @@ class MovieListViewModel(
 
     private fun loadMovies() {
         viewModelScope.launch {
-            interactor.getMovies(query, page = 1)
+            interactor.getMovies(query, page = uiState.value.currentPage)
                 .collect { movies ->
                     setState { current ->
                         current.copy(
@@ -53,6 +53,26 @@ class MovieListViewModel(
                     )
                 }
                 loadMovies()
+            }
+
+            MovieListContract.Event.ScrollDown -> {
+                // Set loading
+                setState { it.copy(isLoading = true) }
+
+                // Launch a coroutine for collecting movies
+                viewModelScope.launch {
+                    val nextPage = uiState.value.currentPage + 1
+                    interactor.getMovies(query = uiState.value.query, page = nextPage)
+                        .collect { movies ->
+                            setState { current ->
+                                current.copy(
+                                    movies = current.movies + movies, // append new page
+                                    currentPage = nextPage,
+                                    isLoading = false
+                                )
+                            }
+                        }
+                }
             }
         }
     }

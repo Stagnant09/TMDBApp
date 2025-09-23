@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Refresh
@@ -18,6 +19,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +31,7 @@ import com.example.tmdbapp.interactors.MovieInteractor
 import com.example.tmdbapp.statics.MovieDetails
 import com.example.tmdbapp.ui.components.MovieCardList
 import com.example.tmdbapp.ui.components.TabWideCircularProgressIndicator
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,6 +41,7 @@ fun MovieListScreen(
     onNavigateToMovieDetails: () -> Unit
 ) {
     val state = viewModel.uiState.collectAsStateWithLifecycle().value
+    val lazyListState = rememberLazyListState()
 
     LaunchedEffect(Unit) {
         viewModel.uiEffect.collect { effect ->
@@ -88,13 +95,31 @@ fun MovieListScreen(
                             modifier = Modifier.padding(16.dp)
                         )
                         Spacer(modifier = Modifier.height(4.dp))
-                        MovieCardList(
-                            movies = state.movies,
-                            onItemClick = { movie ->
-                                MovieDetails.movie = movie
-                                onNavigateToMovieDetails()
+                        when (state.movies.isNotEmpty()) {
+                            true -> {
+                                val reachedBottom: Boolean by remember {
+                                    derivedStateOf {
+                                        val lastVisibleItem = lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()
+                                        lastVisibleItem?.index != 0 && lastVisibleItem?.index == lazyListState.layoutInfo.totalItemsCount - 2
+                                    }
+                                }
+
+                                LaunchedEffect(reachedBottom) {
+                                    if (reachedBottom) {
+                                        viewModel.setEvent(MovieListContract.Event.ScrollDown)
+                                    }
+                                }
+                                MovieCardList(
+                                    movies = state.movies,
+                                    lazyListState = lazyListState,
+                                    onItemClick = { movie ->
+                                        MovieDetails.movie = movie
+                                        onNavigateToMovieDetails()
+                                    }
+                                )
                             }
-                        )
+                            false -> {}
+                        }
                     }
                 }
             }

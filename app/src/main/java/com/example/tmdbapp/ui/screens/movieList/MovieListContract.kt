@@ -11,12 +11,14 @@ sealed interface MovieListContract {
         data object LoadMovies : Event
         data object Refresh : Event
         data class OnMovieClick(val movie: Movie) : Event
+        data object ScrollDown : Event
     }
 
     data class State(
         val query: String,
         val isLoading: Boolean = false,
-        val movies: List<Movie> = emptyList()
+        val movies: List<Movie> = emptyList(),
+        val currentPage: Int = 1
     ) : CustomState
 
     sealed interface Effect : CustomEffect {
