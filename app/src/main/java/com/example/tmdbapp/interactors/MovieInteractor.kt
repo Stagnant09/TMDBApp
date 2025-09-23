@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class MovieInteractor(
+open class MovieInteractor(
     private val repository: MovieRepository = MovieRepository
 ) {
-    fun getMovies(
+    open fun getMovies(
         query: String,
         page: Int
     ): Flow<List<Movie>> = flow {
