@@ -233,7 +233,7 @@ fun DetailItem(label: String, value: String) {
 fun MovieDetailsScreenPreview() {
     MaterialTheme {
         MovieDetailsScreen(
-            onBack = { println("Back clicked") }
+            onBack = { }
         )
     }
 }
