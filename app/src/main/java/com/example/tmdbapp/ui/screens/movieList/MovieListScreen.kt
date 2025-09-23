@@ -28,6 +28,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.tmdbapp.interactors.MovieInteractor
 import com.example.tmdbapp.statics.MovieDetails
 import com.example.tmdbapp.ui.components.MovieCardList
+import com.example.tmdbapp.ui.components.NoContentFound
 import com.example.tmdbapp.ui.components.TabWideCircularProgressIndicator
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -114,7 +115,9 @@ fun MovieListScreen(
                                     }
                                 )
                             }
-                            false -> {}
+                            false -> {
+                                NoContentFound()
+                            }
                         }
                     }
                 }
