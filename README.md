@@ -21,19 +21,19 @@
 ## 📁 Structure
 ```bash
 tmdbapp/
-    graphics/     # The particle effect
-    interactors/
-    models/
-    mvi/
-    network/
-    repository/
-    statics/
-    transformers/
+    graphics/        # The particle effect
+    interactors/   
+    models/   
+    mvi/             # Definitions for basic MVI utilities (ViewModel etc.)
+    network/         # API provider
+    repository/    
+    statics/         # Objects
+    transformers/  
     ui/
-        components/
+        components/  # Various reusable components
         screens/
-        theme/
-    utils/
+        theme/       
+    utils/           # Various functional utilities
 ```
 ---
 ## 🛠️ Setup
