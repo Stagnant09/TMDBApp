@@ -3,6 +3,7 @@ package com.example.tmdbapp.graphics
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
@@ -12,6 +13,8 @@ import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import com.example.compose.AppThemeCustomColors
+import com.example.tmdbapp.ui.theme.CustomColors
 import kotlin.random.Random
 
 @Composable
@@ -19,7 +22,8 @@ fun ParticleBackground(particleCount: Int = 50) {
     val canvasWidth = remember { mutableStateOf(0f) }
     val canvasHeight = remember { mutableStateOf(0f) }
 
-    // Particles as state objects so Compose sees changes
+    val particleColor = AppThemeCustomColors.colors.particleColor
+
     val particles = remember { mutableStateListOf<Particle>() }
 
     Canvas(modifier = Modifier.fillMaxSize()) {
@@ -32,7 +36,7 @@ fun ParticleBackground(particleCount: Int = 50) {
                     Particle(
                         position = Offset(Random.nextFloat() * size.width, Random.nextFloat() * size.height),
                         velocity = Offset((Random.nextFloat() - 0.5f) * 2, (Random.nextFloat() - 0.5f) * 2),
-                        color = Color.White.copy(alpha = 0.7f),
+                        color = particleColor,
                         radius = Random.nextFloat() * 2 + 2
                     )
                 )
