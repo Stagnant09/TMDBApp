@@ -16,6 +16,25 @@
 - Based on MVI Architecture
 - Pull-to-refresh functionality
 - Infinite scroll support (with pagination)
+- Unit Test for a ViewModel
+---
+## 📁 Structure
+```
+tmdbapp/
+    graphics/
+    interactors/
+    models/
+    mvi/
+    network/
+    repository/
+    statics/
+    transformers/
+    ui/
+        components/
+        screens/
+        theme/
+    utils/
+```
 ---
 ## 🛠️ Setup
 1. Clone the repository
