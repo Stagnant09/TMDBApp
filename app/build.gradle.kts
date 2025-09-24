@@ -72,7 +72,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation(libs.androidx.navigation.compose)    // <<--- ADD THIS LINE
+    implementation(libs.androidx.navigation.compose)
 
     // Retrofit core
     implementation(libs.retrofit)
@@ -90,4 +90,13 @@ dependencies {
 
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.compose.v277)
+
+    // Coroutines test
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // Turbine for Flow testing
+    testImplementation(libs.turbine)
+
+    // JUnit
+    testImplementation(libs.junit)
 }
