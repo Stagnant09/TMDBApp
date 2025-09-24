@@ -21,7 +21,7 @@
 ## 📁 Structure
 ```bash
 tmdbapp/
-    graphics/     % The particle effect
+    graphics/     # The particle effect
     interactors/
     models/
     mvi/
