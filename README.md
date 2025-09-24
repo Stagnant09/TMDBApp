@@ -13,6 +13,7 @@
 
 
 ## 💻 Implementation
+- Kotlin + Jetpack Compose
 - Based on MVI Architecture
 - Pull-to-refresh functionality
 - Infinite scroll support (with pagination)
