@@ -1,4 +1,5 @@
 # TMDB Search App #
+
 This Android app allows the user to search movies in The Movie Database by their title. It also displays details about any movie such as ratings, description and more.
 🛠️ Setup
 ---
