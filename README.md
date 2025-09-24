@@ -12,12 +12,12 @@
 ### This Android app allows the user to search movies in The Movie Database by their title. It also displays details about any movie such as ratings, description and more. <br> <br>
 
 ---
-💻 Implementation
+## 💻 Implementation
 - Based on MVI Architecture
 - Pull-to-refresh functionality
 - Infinite scroll support (with pagination)
 ---
-🛠️ Setup
+## 🛠️ Setup
 1. Clone the repository
 2. Add your API key in `local.properties`
 ```
