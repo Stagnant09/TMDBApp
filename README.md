@@ -19,7 +19,7 @@
 - Unit Test for a ViewModel
 ---
 ## 📁 Structure
-```
+```bash
 tmdbapp/
     graphics/
     interactors/
