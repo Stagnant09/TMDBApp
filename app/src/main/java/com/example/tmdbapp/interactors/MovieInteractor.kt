@@ -17,20 +17,16 @@ open class MovieInteractor(
         query: String,
         page: Int
     ): Flow<List<Movie>> = flow {
-        // 1. Fetch the list of MovieResponse objects
         val movieResponses: List<MovieResponse> = repository.fetchMovies(
             query = query,
             page = page
         )
-        // 2. Transform the list of MovieResponse to a list of Movie
-        val movies: List<Movie> = movieResponses.map { it.toMovie() } // Using the extension function
+        val movies: List<Movie> = movieResponses.map { it.toMovie() }
 
-        // 3. Emit the transformed list of Movie objects
         emit(movies)
     }
-        .flowOn(Dispatchers.IO) // Perform repository call and transformation on IO dispatcher
+        .flowOn(Dispatchers.IO)
         .catch {
-            // Handle exceptions, e.g., network error
             System.err.println("Error fetching movies: ${it.message}")
             emit(emptyList<Movie>()) // Emit an empty list in case of an error
         }

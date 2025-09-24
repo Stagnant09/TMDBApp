@@ -37,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.compose.AppThemeCustomColors
 import com.example.tmdbapp.statics.MovieDetails
 import com.example.tmdbapp.ui.components.ExpandableText
 import com.example.tmdbapp.ui.components.RemoteIcon
@@ -57,6 +58,8 @@ fun MovieDetailsScreen(
 
     val fullBackdropPath = movie.backdropPath?.let { "$baseImageUrl$backdropSize$it" } ?: placeholderBackdrop
     val fullPosterPath = movie.posterPath?.let { "$baseImageUrl$posterSize$it" } ?: placeholderPoster
+
+    val starColor = AppThemeCustomColors.colors.starColor
 
     Scaffold(
         topBar = {
@@ -137,7 +140,7 @@ fun MovieDetailsScreen(
                         Icon(
                             imageVector = Icons.Filled.Star,
                             contentDescription = "Rating",
-                            tint = Color(0xFFFFC107), // Gold color for star
+                            tint = starColor, // Gold color for star
                             modifier = Modifier.size(20.dp)
                         )
                         Spacer(modifier = Modifier.width(4.dp))
